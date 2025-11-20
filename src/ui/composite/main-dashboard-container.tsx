@@ -2,6 +2,7 @@
 import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
 import { statusEnum } from "@/lib/definition";
+import { authOptions } from "@/lib/authOptions";
 
 export const MainDashboardContainer = () => {
   return (
@@ -28,14 +29,22 @@ const Dashboard = () => {
 };
 
 export const DashboardInner = async () => {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   if (!session) return <DashboardLogout />;
 
-  const quotes = await prisma.quote.findMany({
+  const isAdmin = session.user.role === "admin";
+  const baseQuery = {
     orderBy: { createdAt: "desc" },
-    where: { email: session.user.email },
     take: 10,
-  });
+  } as const;
+  const quotes = await prisma.quote.findMany(
+    isAdmin
+      ? baseQuery
+      : {
+          ...baseQuery,
+          where: { email: session.user.email },
+        },
+  );
 
   return (
     <table className="w-full border-collapse">

@@ -31,14 +31,13 @@ export const authOptions: NextAuthOptions = {
         token.name = user.name;
         token.email = user.email;
 
-        const adminEmails = ["kimsfoam@gmail.com"];
+        const adminEmails = ["kimsfoam@gmail.com", "thatkwon@gmail.com"];
         if (token.email && adminEmails.includes(token.email)) {
           token.role = "admin";
         } else {
           token.role = "user";
         }
       }
-
       return token;
     },
 
