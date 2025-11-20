@@ -1,26 +1,85 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* dummy */
+  --font-pretendard: sans-serif;
+  --font-binggrae: serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  /* breakpoint */
+  --breakpoint-xs: 30rem;
+
+  /* font */
+  --font-sans: var(--font-pretendard), sans-serif;
+  --font-serif: var(--font-binggrae), serif;
+
+  /* text */
+  --text-h1: clamp(1.8rem, 1.8rem + 2vw, 4.5rem);
+  --text-h2: clamp(0.6875rem, 0.6875rem + 2vw, 3rem);
+  --text-h3: clamp(0.875rem, 0.875rem + 2vw, 1.25rem);
+  --text-p: clamp(0.75rem, 0.75rem + 2vw, 1rem);
+  /* additional text */
+  --text-h2_5: clamp(0.75rem, 0.75rem + 2vw, 2rem);
+  --text-description: clamp(0.75rem, 0.75rem + 1vw, 1.125rem);
+  --text-small: clamp(0.625rem, 0.625rem + 1vw, 1rem);
+
+
+  /* color text */
+  --color-text-black: #2E3038;
+  --color-text-gray: #73798C;
+  --color-text-white: #9CA3AF;
+  --color-text-dark: #6f5842;
+  /* color background */
+  --color-background-black: #E5E7EB;
+  --color-background-gray: #F4F4F4;
+  --color-background-red: #C94F3D;
+  /* color brand */
+  --color-brand-light: #e5dcc980;
+  --color-brand-dark: #7a5c4580;
+  --color-brand-red: #B5442B;
+  --color-brand-blue: #517A94;
+
+  --color-brand-base: #DBD4CE;
+  --color-brand-base-dark: #C7BCB3;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply break-keep text-wrap whitespace-pre-line
+  }
+  h1 {
+    font-size: var(--text-h1);
+  }
+  h2 {
+    font-size: var(--text-h2);
+  }
+  h3 {
+    font-size: var(--text-h3);
+  }
+  p {
+    /*font-size: var(--text-p)*/
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.padding-outer {
+  @apply p-[clamp(1rem,2vw,4rem)]
+}
+
+.text-break {
+  @apply break-keep text-wrap whitespace-pre-line
+}
+
+.transition-ease {
+  @apply transition-all duration-300 ease-in-out
+}
+.transition-ease-slow {
+  @apply transition-all duration-400 ease-in-out
+}
+
+.button-brand {
+  @apply bg-brand-base hover:bg-brand-base-dark shadow-sm select-none
+}
+.button-gray {
+  @apply bg-background-gray hover:bg-background-black shadow-sm select-none
 }
