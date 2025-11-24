@@ -56,3 +56,11 @@ export type QuoteType = {
   buildingType: number;
   area?: number;
 };
+
+export type ProjectType = {
+  title: string;
+  date: Date;
+  buildingType: number;
+  url: string;
+  thumbnail: string;
+};

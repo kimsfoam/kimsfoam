@@ -39,7 +39,7 @@ export const ContactQuestionBuilding = ({
             onChange={(e) =>
               setQuote({ ...quote, buildingType: Number(e.target.value) })
             }
-            className="bg-background-black text-text-gray transition-ease text-description cursor-pointer appearance-none rounded-sm px-4 py-2 pr-16 font-semibold shadow-sm outline-none"
+            className="outline-background-black text-text-gray transition-ease text-description cursor-pointer appearance-none rounded-sm px-4 py-2 pr-16 font-semibold outline-3"
           >
             {buildingEnum.map((building, index) => (
               <option key={index} value={index}>
@@ -47,7 +47,7 @@ export const ContactQuestionBuilding = ({
               </option>
             ))}
           </select>
-          <BarsArrowDownIcon className="text-text-gray absolute top-1/2 right-8 size-6 -translate-y-1/2" />
+          <BarsArrowDownIcon className="text-text-white absolute top-1/2 right-8 size-6 -translate-y-1/2 stroke-2" />
         </label>
         <label className="relative flex flex-row items-center justify-start gap-x-4 p-4">
           <h3 className="text-text-black flex-shrink-0 font-bold">
@@ -57,7 +57,7 @@ export const ContactQuestionBuilding = ({
             type="text"
             value={quote.area}
             onChange={handleAreaChange}
-            className="bg-background-black text-text-gray transition-ease text-description w-30 cursor-pointer appearance-none rounded-sm px-4 py-2 font-semibold shadow-sm outline-none"
+            className="outline-background-black text-text-gray transition-ease text-description w-30 cursor-pointer appearance-none rounded-sm px-4 py-2 font-semibold outline-3"
           />
           <p className="text-description font-bold">m²</p>
         </label>

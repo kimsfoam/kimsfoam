@@ -1,5 +1,7 @@
-﻿import Image from "next/image";
+﻿"use client";
+import Image from "next/image";
 import { BrandButtonProgress } from "@/ui/atom/brand-button";
+import { motion } from "framer-motion";
 
 export const Hero = () => {
   const link = {
@@ -13,7 +15,7 @@ export const Hero = () => {
         <Image
           src="/banner/hero-wide.png"
           alt="hero"
-          className="-z-3 object-cover brightness-80 filter backdrop-blur-3xl"
+          className="transition-ease -z-3 object-cover brightness-80 filter backdrop-blur-3xl"
           fill
         />
         <h1 className="font-serif leading-none font-bold text-white">

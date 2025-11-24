@@ -83,3 +83,6 @@
 .button-gray {
   @apply bg-background-gray hover:bg-background-black shadow-sm select-none
 }
+.card-gray {
+  @apply bg-background-gray/50 hover:bg-background-black/50 outline-1 outline-background-black
+}

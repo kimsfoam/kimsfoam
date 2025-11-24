@@ -4,6 +4,7 @@ import React from "react";
 import { fontClass } from "@/lib/font";
 import { Header } from "@/ui/layout/header";
 import { AuthProvider } from "@/app/authProvider";
+import { AnimatePresence } from "framer-motion";
 
 export const metadata: Metadata = {
   title: "킴스폼",
@@ -23,6 +24,7 @@ export default function RootLayout({
           {/*<LoginContainer />*/}
           <Header />
           {children}
+
           {/*<Footer />*/}
         </AuthProvider>
       </body>

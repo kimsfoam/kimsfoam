@@ -82,7 +82,7 @@ export const ContactQuestionForm = () => {
               견적 전송하기
             </h3>
             <p className="text-description text-text-black/80">
-              킴스폼이 확인 후 답변드립니다
+              킴스폼이 확인 후 곧 답변드립니다
             </p>
           </button>
         ) : (
