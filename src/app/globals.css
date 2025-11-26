@@ -16,11 +16,14 @@
 
   /* text */
   --text-h1: clamp(1.8rem, 1.8rem + 2vw, 4.5rem);
-  --text-h2: clamp(0.6875rem, 0.6875rem + 2vw, 3rem);
-  --text-h3: clamp(0.875rem, 0.875rem + 2vw, 1.25rem);
+  /*--text-h2: clamp(0.6875rem, 0.6875rem + 2vw, 3rem);*/
+  /*--text-h3: clamp(0.875rem, 0.875rem + 2vw, 1.25rem);*/
+  --text-h2: clamp(0.875rem, 0.875rem + 2vw, 3rem);
+  --text-h3: clamp(0.6875rem, 0.6875rem + 2vw, 1.25rem);
   --text-p: clamp(0.75rem, 0.75rem + 2vw, 1rem);
   /* additional text */
   --text-h2_5: clamp(0.75rem, 0.75rem + 2vw, 2rem);
+  --text-h3_5: clamp(0.625rem, 0.625rem + 2vw, 1.125rem);
   --text-description: clamp(0.75rem, 0.75rem + 1vw, 1.125rem);
   --text-small: clamp(0.625rem, 0.625rem + 1vw, 1rem);
 

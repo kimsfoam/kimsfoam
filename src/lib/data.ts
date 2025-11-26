@@ -1,4 +1,4 @@
-﻿import { FeatureType } from "@/lib/definition";
+﻿import { FeatureType, ProjectType } from "@/lib/definition";
 
 export const featureDatas: Record<number, FeatureType> = {
   1: {
@@ -207,3 +207,41 @@ export const SolutionDatas = {
     place: ["물류창고", "대형상가", "공공건물"],
   },
 };
+
+export const sampleProjects: ProjectType[] = [
+  {
+    title: "송파구 잠실동 아파트 단열 시공",
+    date: new Date("2025-02-18"),
+    buildingType: 1, // 1 = 아파트
+    url: "/projects/songpa-jamsil-apt",
+    thumbnail: "/gallery/01_01.jpg",
+  },
+  {
+    title: "강남구 삼성동 고급 빌라 방음 단열",
+    date: new Date("2025-01-09"),
+    buildingType: 2, // 2 = 빌라
+    url: "/projects/gangnam-samsung-villa",
+    thumbnail: "/gallery/02_01.jpeg",
+  },
+  {
+    title: "수원 영통구 단독주택 외벽 + 다락 단열",
+    date: new Date("2024-12-23"),
+    buildingType: 3, // 3 = 단독주택
+    url: "/projects/suwon-yeongtong-house",
+    thumbnail: "/gallery/03_01.jpg",
+  },
+  {
+    title: "화성 동탄 상가 사무실 천장 우레탄 폼 시공",
+    date: new Date("2024-11-14"),
+    buildingType: 4, // 4 = 상가/오피스
+    url: "/projects/dongtan-office-foam",
+    thumbnail: "/gallery/06_01.jpg",
+  },
+  {
+    title: "용인 처인구 창고 단열 보수 공사",
+    date: new Date("2024-10-02"),
+    buildingType: 5, // 5 = 창고/공장
+    url: "/projects/yongin-warehouse",
+    thumbnail: "/gallery/07_01.jpg",
+  },
+];

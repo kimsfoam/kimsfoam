@@ -44,7 +44,7 @@ const FeatureList = () => {
 
 const FeatureCard = ({ title, description, image }: FeatureType) => {
   return (
-    <div className="bg-background-gray/50 hover:bg-background-black/50 transition-ease outline-background-black flex w-full cursor-default flex-col items-start justify-start rounded-2xl p-6 outline-1">
+    <div className="card-gray transition-ease flex w-full cursor-default flex-col items-start justify-start rounded-2xl p-6">
       {image && (
         <FlexCenter>
           <Image
