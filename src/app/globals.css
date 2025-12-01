@@ -65,27 +65,39 @@
   }
 }
 
-.padding-outer {
-  @apply p-[clamp(1rem,2vw,4rem)]
+@layer utilities {
+  .padding-outer {
+    @apply p-[clamp(1rem,2vw,4rem)]
+  }
+  .text-break {
+    @apply break-keep text-wrap whitespace-pre-line
+  }
+  .transition-ease {
+    @apply transition-all duration-300 ease-in-out
+  }
+  .transition-ease-slow {
+    @apply transition-all duration-400 ease-in-out
+  }
+
+  .button-brand {
+    @apply bg-brand-base hover:bg-brand-base-dark shadow-sm select-none
+  }
+  .button-brand-outline {
+    @apply bg-background-gray ring-brand-base-dark ring-2
+  }
+  .button-brand-text {
+    @apply bg-background-gray text-text-gray hover:text-brand-base-dark outline-2 outline-brand-base-dark
+  }
+  .button-red {
+    @apply bg-brand-red/75 hover:bg-brand-red/100 shadow-sm select-none
+  }
+  .button-gray {
+    @apply bg-background-gray hover:bg-background-black shadow-sm select-none
+  }
+  .card-gray {
+    @apply bg-background-gray/50 hover:bg-background-black/50 outline-1 outline-background-black
+  }
 }
 
-.text-break {
-  @apply break-keep text-wrap whitespace-pre-line
-}
 
-.transition-ease {
-  @apply transition-all duration-300 ease-in-out
-}
-.transition-ease-slow {
-  @apply transition-all duration-400 ease-in-out
-}
 
-.button-brand {
-  @apply bg-brand-base hover:bg-brand-base-dark shadow-sm select-none
-}
-.button-gray {
-  @apply bg-background-gray hover:bg-background-black shadow-sm select-none
-}
-.card-gray {
-  @apply bg-background-gray/50 hover:bg-background-black/50 outline-1 outline-background-black
-}

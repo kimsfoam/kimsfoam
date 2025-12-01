@@ -2,26 +2,6 @@
 
 import { prisma } from "@/lib/prisma";
 
-// export async function submitQuote(quote: QuoteType) {
-//   const saved = await prisma.quote.create({
-//     data: {
-//       email: quote.email!,
-//       name: quote.name!,
-//       phone: quote.phone ?? null,
-//       status: quote.status,
-//       createdAt: new Date(),
-//       workAt: quote.workAt ?? null,
-//       price: quote.price,
-//       thickness: quote.thickness,
-//       solutionType: quote.solutionType,
-//       buildingType: quote.buildingType,
-//       area: quote.area,
-//     },
-//   });
-//
-//   return saved;
-// }
-
 export async function submitQuote(data: {
   email: string;
   name: string;

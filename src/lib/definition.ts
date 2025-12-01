@@ -44,6 +44,7 @@ export const buildingEnum = [
 ];
 
 export type QuoteType = {
+  id?: number;
   email: string;
   name: string;
   phone?: string;
@@ -58,6 +59,7 @@ export type QuoteType = {
 };
 
 export type ProjectType = {
+  id?: number;
   title: string;
   date: Date;
   buildingType: number;

@@ -47,7 +47,7 @@ export const ContactQuestionPhone = ({
             maxLength={13}
             onChange={handlePhoneChange}
             inputMode="tel"
-            className="outline-background-black text-text-gray transition-ease text-description w-full cursor-pointer appearance-none rounded-sm px-4 py-2 font-semibold outline-3"
+            className="outline-background-black text-text-gray transition-ease text-description w-full appearance-none rounded-sm px-4 py-2 font-semibold outline-3"
           />
           <p className="text-description text-text-white font-bold">(선택)</p>
         </label>

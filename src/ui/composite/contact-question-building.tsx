@@ -1,6 +1,6 @@
 ﻿import { buildingEnum, QuoteType } from "@/lib/definition";
 import React from "react";
-import { BarsArrowDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 export const ContactQuestionBuilding = ({
   quote,
@@ -47,7 +47,7 @@ export const ContactQuestionBuilding = ({
               </option>
             ))}
           </select>
-          <BarsArrowDownIcon className="text-text-white absolute top-1/2 right-8 size-6 -translate-y-1/2 stroke-2" />
+          <ChevronDownIcon className="text-text-white absolute top-1/2 right-7 size-6 -translate-y-1/2 stroke-2" />
         </label>
         <label className="relative flex flex-row items-center justify-start gap-x-4 p-4">
           <h3 className="text-text-black flex-shrink-0 font-bold">
@@ -57,7 +57,7 @@ export const ContactQuestionBuilding = ({
             type="text"
             value={quote.area}
             onChange={handleAreaChange}
-            className="outline-background-black text-text-gray transition-ease text-description w-30 cursor-pointer appearance-none rounded-sm px-4 py-2 font-semibold outline-3"
+            className="outline-background-black text-text-gray transition-ease text-description w-30 appearance-none rounded-sm px-4 py-2 font-semibold outline-3"
           />
           <p className="text-description font-bold">m²</p>
         </label>
