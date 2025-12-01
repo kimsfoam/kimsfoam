@@ -9,7 +9,7 @@ export const Feature = () => {
   return (
     <section className="w-full pb-16">
       <div className="padding-outer flex flex-col items-start justify-start gap-y-2 sm:items-center">
-        <h2 className="text-text-black font-serif font-bold">
+        <h2 className="text-text-black font-extrabold">
           킴스폼이 지키는 것, 중요하게 여기는 기준
         </h2>
         <p className="text-small text-text-gray">

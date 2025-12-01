@@ -40,7 +40,7 @@ export const Footer = () => {
           <div className="col-span-2 flex flex-col">
             <h3 className="text-text-black mb-2 font-bold">이용약관</h3>
             <p className="text-small text-text-gray cursor-pointer underline">
-              개인정보 처리방침
+              개인정보처리방침
             </p>
           </div>
         </div>

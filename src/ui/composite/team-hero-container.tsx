@@ -3,7 +3,7 @@ import Image from "next/image";
 import { BrandButtonProgress } from "@/ui/atom/brand-button";
 import { motion } from "framer-motion";
 
-export const TeamContainer = () => {
+export const TeamHeroContainer = () => {
   return (
     <section className="transition-ease relative w-full">
       <div className="relative flex h-[clamp(12rem,28vw,28rem)] w-full flex-col items-center justify-center gap-y-4 overflow-hidden shadow-xl">

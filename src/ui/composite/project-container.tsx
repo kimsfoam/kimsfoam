@@ -11,9 +11,7 @@ export const ProjectContainer = async () => {
   return (
     <section className="relative w-full py-16">
       <div className="padding-outer flex flex-col items-start justify-start gap-y-2 sm:items-center">
-        <h2 className="text-text-black font-serif font-bold">
-          킴스폼의 생생한 시공 현장
-        </h2>
+        <h2 className="text-text-black font-extrabold">킴스폼의 시공 현장</h2>
         <ProjectClient projects={projects} />
       </div>
     </section>

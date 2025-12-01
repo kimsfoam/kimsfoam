@@ -15,7 +15,7 @@ export const Gallery = () => {
   return (
     <section className="bg-background-gray/70 w-full py-16 2xl:px-8">
       <div className="padding-outer flex flex-col items-start justify-start gap-y-2 sm:items-center">
-        <h2 className="text-text-black font-serif font-bold">
+        <h2 className="text-text-black font-extrabold">
           킴스폼의 생생한 시공 현장
         </h2>
         <p className="text-small text-text-gray">

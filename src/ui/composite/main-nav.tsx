@@ -6,7 +6,7 @@ import { LoginContainer } from "@/ui/composite/login-container";
 
 const links = [
   { href: "/home", title: "홈페이지", type: "logo" },
-  { href: "/team", title: "회사 소개", type: "text" },
+  // { href: "/team", title: "회사 소개", type: "text" },
   { href: "/project", title: "시공 후기", type: "text" },
   { href: "/support", title: "고객 지원", type: "text" },
   { href: "/contact", title: "견적 문의하기 ↗", type: "button" },
@@ -17,7 +17,7 @@ export const MainNav = () => (
     <div className="flex h-full w-full items-center justify-between px-6">
       {/* Left */}
       <nav className="flex items-center gap-x-6">
-        {links.slice(0, 4).map((link) => (
+        {links.slice(0, 3).map((link) => (
           <NavItem key={link.href} {...link} />
         ))}
       </nav>
@@ -25,7 +25,7 @@ export const MainNav = () => (
       {/* Right */}
       <div className="flex items-center gap-x-4">
         <ContactBlock />
-        <NavItem {...links[4]} />
+        <NavItem {...links[3]} />
         <LoginContainer />
       </div>
     </div>
