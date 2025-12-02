@@ -60,7 +60,10 @@ export const Footer = () => {
 const RoundIcon = ({
   url,
   children,
-}: Readonly<{ children: React.ReactNode }>) => {
+}: {
+  url: string;
+  children: React.ReactNode;
+}) => {
   return (
     <a href={url} target="_blank" rel="noreferrer noopener">
       <FlexCenter className="bg-text-black transition-ease flex-col rounded-full p-2 hover:scale-125">

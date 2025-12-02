@@ -9,7 +9,7 @@ export const MainDashboardContainer = () => {
     <section className="w-full pb-16">
       <div className="padding-outer flex flex-col items-start justify-start gap-y-2 sm:items-center">
         <h2 className="text-text-black font-extrabold">
-          · 신청한 단열 견적 확인하기 ·
+          신청한 단열 견적 확인하기
         </h2>
         {/*<p className="text-small text-text-gray">*/}
         {/*  견적부터 시공까지 모든 진행 과정을 킴스폼과 함께하세요.*/}
