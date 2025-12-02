@@ -5,6 +5,7 @@ import { fontClass } from "@/lib/font";
 import { Header } from "@/ui/layout/header";
 import { AuthProvider } from "@/app/authProvider";
 import { Footer } from "@/ui/layout/footer";
+import { MobileHeader } from "@/ui/layout/mobile-header";
 
 export const metadata: Metadata = {
   title: "킴스폼",
@@ -24,8 +25,8 @@ export default function RootLayout({
           {/*<LoginContainer />*/}
           <Header />
           {children}
-
           <Footer />
+          <MobileHeader />
         </AuthProvider>
       </body>
     </html>

@@ -3,29 +3,54 @@ import Image from "next/image";
 import { PhoneIcon } from "@heroicons/react/24/solid";
 import { BrandButtonVanilla } from "@/ui/atom/brand-button";
 import { LoginContainer } from "@/ui/composite/login-container";
+import {
+  ChatBubbleLeftRightIcon,
+  HomeIcon,
+  PaperAirplaneIcon,
+  PhoneArrowUpRightIcon,
+  RectangleGroupIcon,
+  UserGroupIcon,
+} from "@heroicons/react/24/solid";
 
 const links = [
   { href: "/home", title: "홈페이지", type: "logo" },
-  // { href: "/team", title: "회사 소개", type: "text" },
+  { href: "/team", title: "회사 소개", type: "text" },
   { href: "/project", title: "시공 후기", type: "text" },
   { href: "/support", title: "고객 지원", type: "text" },
   { href: "/contact", title: "견적 문의하기 ↗", type: "button" },
 ] as const;
 
+const mobileLinks = [
+  { href: "/home", title: "홈페이지", type: "logo" },
+  { href: "/team", title: "회사 소개", type: "text" },
+  { href: "/project", title: "시공 후기", type: "text" },
+  { href: "/support", title: "고객 지원", type: "text" },
+  { href: "tel:010-46885-9699", title: "전화 연결", type: "text" },
+  { href: "/contact", title: "견적 문의", type: "button" },
+];
+
 export const MainNav = () => (
   <section className="h-16 w-full bg-gray-50/75 shadow-sm backdrop-blur-[5px] backdrop-saturate-[180%]">
     <div className="flex h-full w-full items-center justify-between px-6">
       {/* Left */}
-      <nav className="flex items-center gap-x-6">
-        {links.slice(0, 3).map((link) => (
+      <nav className="hidden items-center gap-x-6 md:flex">
+        {links.slice(0, 4).map((link) => (
           <NavItem key={link.href} {...link} />
         ))}
+      </nav>
+      <nav className="flex items-center gap-x-6 md:hidden">
+        {links
+          .slice(0, 4)
+          .filter((_, index) => index !== 1)
+          .map((link) => (
+            <NavItem key={link.href} {...link} />
+          ))}
       </nav>
 
       {/* Right */}
       <div className="flex items-center gap-x-4">
         <ContactBlock />
-        <NavItem {...links[3]} />
+        <NavItem {...links[4]} />
         <LoginContainer />
       </div>
     </div>
@@ -41,9 +66,10 @@ const NavItem = ({ href, title, type = "text" }: NavItemProps) => {
   switch (type) {
     case "logo":
       return (
-        <Link href={href} className="mb-0.5 pr-2">
+        <Link href={href} className="mb-0.5">
           <Image
             src="/logo/logo-horizontal.png"
+            a
             alt={title}
             width={96}
             height={32}
@@ -66,7 +92,7 @@ const NavItem = ({ href, title, type = "text" }: NavItemProps) => {
 };
 
 const ContactBlock = () => (
-  <div className="mt-0.5 flex flex-col items-end text-right">
+  <div className="mt-0.5 hidden flex-col items-end text-right lg:flex">
     <h3 className="font-serif">
       지금 바로 <span className="text-brand-red font-semibold">전화</span>상담
     </h3>
@@ -76,3 +102,48 @@ const ContactBlock = () => (
     </p>
   </div>
 );
+
+export const MainMobileNav = () => {
+  return (
+    <section className="h-16 w-full bg-gray-50/75 shadow-sm backdrop-blur-[5px] backdrop-saturate-[180%]">
+      <div className="flex h-full w-full items-center justify-center px-6">
+        <nav className="flex items-center gap-x-6">
+          {mobileLinks.map((link, index) => (
+            <MobileNavItem key={link.href} {...link} index={index} />
+          ))}
+        </nav>
+      </div>
+    </section>
+  );
+};
+
+function RenderIcon(id: number) {
+  switch (id) {
+    case 0:
+      return <HomeIcon className="text-text-black size-5" />;
+    case 1:
+      return <ChatBubbleLeftRightIcon className="text-text-black size-5" />;
+    case 2:
+      return <RectangleGroupIcon className="text-text-black size-5" />;
+    case 3:
+      return <UserGroupIcon className="text-text-black size-5" />;
+    case 4:
+      return <PhoneArrowUpRightIcon className="text-brand-red size-5" />;
+    case 5:
+      return <PaperAirplaneIcon className="text-text-black size-5" />;
+  }
+}
+const MobileNavItem = ({ href, title, index }) => {
+  return (
+    <Link
+      href={href}
+      key={title}
+      className="group flex flex-col items-center justify-center gap-1"
+    >
+      {RenderIcon(index)}
+      <p className="text-text-gray group-hover:text-text-black text-sm">
+        {title}
+      </p>
+    </Link>
+  );
+};
