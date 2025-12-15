@@ -1,7 +1,6 @@
 ﻿import { TicketIcon } from "@heroicons/react/24/solid";
 import { SolutionDatas } from "@/lib/data";
 import { SolutionType } from "@/lib/definition";
-import clsx from "clsx";
 
 export const ContactEstimateContainer = () => {
   return (
@@ -39,6 +38,8 @@ const EstimateCard = ({
   discount_percent,
   price,
 }: SolutionType) => {
+  const isDiscount = discount_percent > 0;
+
   return (
     <div
       className={`card-gray transition-ease flex w-full flex-1 flex-col items-start justify-start rounded-2xl p-6 lg:max-w-80`}
@@ -56,23 +57,38 @@ const EstimateCard = ({
         {description}
       </p>
 
-      <div className="mt-6 flex flex-row items-center justify-start gap-x-1 px-1 py-0.5 text-sm text-red-600">
-        <TicketIcon className="size-5" />
-        <p className="text-base">{`약 ${discount_percent}% 할인`}</p>
-      </div>
+      {isDiscount ? (
+        <div className="mt-6 flex flex-row items-center justify-start gap-x-1 px-1 py-0.5 text-sm text-red-600">
+          <TicketIcon className="size-5" />
+          <p className="text-base">{`약 ${discount_percent}% 할인`}</p>
+        </div>
+      ) : (
+        <div className="mt-6 flex flex-row items-center justify-start gap-x-1 px-1 py-0.5 text-sm text-transparent">
+          <TicketIcon className="size-5" />
+          <p className="text-base">{`약 ${discount_percent}% 할인`}</p>
+        </div>
+      )}
+
       <p className="text-text-black items-baseline font-bold">
-        <span className="text-4xl">
-          ~
-          <span className="text-text-white/80 text-4xl line-through decoration-red-500 decoration-3">
-            {price}
+        {isDiscount ? (
+          <span className="text-4xl">
+            ~
+            <span className="text-text-white/80 text-4xl line-through decoration-red-500 decoration-3">
+              {price}
+            </span>
+            {`${price - 20}`}
           </span>
-          {`${price - 20}`}
-        </span>
+        ) : (
+          <span className="text-4xl">
+            ~<span className="text-4xl">{price}</span>
+          </span>
+        )}
+
         <span className="text-text-black/90 relative -top-0.25 pl-0.5 text-2xl">
           원
         </span>
+
         <span className="text-text-white relative -top-0.25 text-base">
-          {" "}
           / m²
         </span>
       </p>

@@ -194,8 +194,8 @@ export const SolutionDatas = {
     title: "경질폼",
     description: "강력한 단열과 구조 보강까지 책임지는 고밀도 단열재",
     isMost: false,
-    price: 230,
-    discount_percent: 8,
+    price: 280,
+    discount_percent: 0,
     place: ["공장", "축사", "창고", "대형견물"],
   },
   3: {
