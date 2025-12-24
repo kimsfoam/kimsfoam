@@ -4,12 +4,16 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 export const ModalBox = ({
   children,
   onClose,
+  className = "",
 }: {
   children: React.ReactNode;
   onClose: () => void;
+  className?: string;
 }) => {
   return (
-    <div className="fixed inset-0 z-10 flex items-center justify-center bg-black/50 backdrop-blur-xs">
+    <div
+      className={`fixed inset-0 z-10 flex items-center justify-center bg-black/50 backdrop-blur-xs ${className}`}
+    >
       <div
         className="overflow-hidden bg-white p-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}

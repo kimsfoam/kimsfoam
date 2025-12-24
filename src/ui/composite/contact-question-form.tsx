@@ -7,6 +7,7 @@ import { ContactQuestionVenue } from "@/ui/composite/contact-question-venue";
 import { useSession } from "next-auth/react";
 import { ContactQuestionPhone } from "@/ui/composite/contact-question-phone";
 import { submitQuote } from "@/lib/quote";
+import { ContactQuestionSend } from "@/ui/composite/contact-question-send";
 
 export const ContactQuestionForm = () => {
   const { data: session } = useSession();
@@ -26,6 +27,8 @@ export const ContactQuestionForm = () => {
     buildingType: 0,
     area: 100,
   });
+
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (session?.user) {
@@ -56,6 +59,8 @@ export const ContactQuestionForm = () => {
 
       const result = await submitQuote(payload);
       console.log("Quote submitted successfully:", result);
+
+      setIsOpen(true);
     } catch (error) {
       console.error("Error submitting quote:", error);
     }
@@ -72,42 +77,41 @@ export const ContactQuestionForm = () => {
         <ContactQuestionVenue />
         <ContactQuestionPhone quote={quote} setQuote={setQuote} />
       </div>
-      <div className="padding-outer sm:bg-background-gray/70 relative flex w-full flex-col items-center justify-center gap-4 sm:flex-row">
+      <div className="padding-outer bg-background-gray/70 relative flex w-full flex-row items-center justify-center gap-4">
+        {/*{!session && (*/}
+        {/*  <p className="text-description text-brand-red/80 font-semibold">*/}
+        {/*    전송하려면 로그인해야 합니다*/}
+        {/*  </p>*/}
+        {/*)}*/}
+        <a
+          href={`tel:${phoneNumber}`}
+          className="transition-ease flex h-10 cursor-pointer flex-col items-center justify-center gap-x-4 rounded-full p-8 text-white"
+        >
+          <h3 className="text-text-black font-serif font-bold">전화하기</h3>
+          <p className="text-description text-text-black/80">010-4685-9699</p>
+        </a>
         {session ? (
           <button
             onClick={handleSubmit}
-            className="button-brand transition-ease relative flex h-30 w-full cursor-pointer flex-col items-center justify-center rounded-full p-4"
+            className="button-brand transition-ease relative flex h-10 cursor-pointer flex-col items-center justify-center rounded-full p-8"
           >
             <h3 className="text-text-black font-serif font-bold">
               견적 전송하기
             </h3>
-            <p className="text-description text-text-black/80">
-              킴스폼이 확인 후 곧 답변드립니다
-            </p>
           </button>
         ) : (
           <button
             disabled
-            className="button-brand transition-ease relative flex h-30 w-full cursor-not-allowed flex-col items-center justify-center rounded-full p-4"
+            className="button-brand transition-ease relative flex h-10 cursor-not-allowed flex-col items-center justify-center rounded-full p-8"
           >
             <h3 className="text-text-black font-serif font-bold">
               견적 전송하기
             </h3>
-            <p className="text-description text-brand-red/80 font-semibold">
-              <span className="font-bold">로그인</span>해야 합니다
-            </p>
           </button>
         )}
-
-        <a
-          href={`tel:${phoneNumber}`}
-          className="button-gray transition-ease outline-background-black flex h-30 w-full cursor-pointer flex-col items-center justify-center rounded-full p-4 text-white outline-3 sm:flex-col"
-        >
-          <h3 className="text-text-black font-serif font-bold">
-            전화 연결하기
-          </h3>
-          <p className="text-description text-text-black/80">010-4685-9699</p>
-        </a>
+        {isOpen && (
+          <ContactQuestionSend isOpen={isOpen} setIsOpen={setIsOpen} />
+        )}
       </div>
     </form>
   );

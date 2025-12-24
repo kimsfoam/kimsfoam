@@ -5,7 +5,7 @@ import { NewspaperIcon, ViewfinderCircleIcon } from "@heroicons/react/24/solid";
 
 export const Footer = () => {
   return (
-    <footer className="bg-background-gray flex w-full flex-row items-center justify-center p-8">
+    <footer className="bg-background-gray mb-16 flex w-full flex-row items-center justify-center p-8 sm:mb-0">
       <section className="padding-outer flex w-full max-w-7xl flex-col gap-y-16">
         <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-5">
           <Link href="/home" className="shrink-0">

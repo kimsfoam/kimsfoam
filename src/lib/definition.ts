@@ -5,6 +5,11 @@ export type FeatureType = {
   image?: string;
 };
 
+export type FAQType = {
+  title: string;
+  description: string;
+};
+
 export type GalleryType = {
   title: string;
   image: string;

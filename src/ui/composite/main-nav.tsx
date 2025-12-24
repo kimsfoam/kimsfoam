@@ -1,16 +1,16 @@
 ﻿import Link from "next/link";
 import Image from "next/image";
-import { PhoneIcon } from "@heroicons/react/24/solid";
-import { BrandButtonVanilla } from "@/ui/atom/brand-button";
-import { LoginContainer } from "@/ui/composite/login-container";
 import {
   ChatBubbleLeftRightIcon,
   HomeIcon,
   PaperAirplaneIcon,
   PhoneArrowUpRightIcon,
+  PhoneIcon,
   RectangleGroupIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
+import { BrandButtonVanilla } from "@/ui/atom/brand-button";
+import { LoginContainer } from "@/ui/composite/login-container";
 
 const links = [
   { href: "/home", title: "홈페이지", type: "logo" },
@@ -69,7 +69,6 @@ const NavItem = ({ href, title, type = "text" }: NavItemProps) => {
         <Link href={href} className="mb-0.5">
           <Image
             src="/logo/logo-horizontal.png"
-            a
             alt={title}
             width={96}
             height={32}

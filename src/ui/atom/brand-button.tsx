@@ -41,3 +41,18 @@ export const BrandButtonProgress = ({ href, title }: BrandButtonProps) => {
     </Link>
   );
 };
+
+export const BrandButtonBigProgress = ({ href, title }: BrandButtonProps) => {
+  return (
+    <Link
+      href={href}
+      className="bg-brand-base transition-ease group relative origin-left overflow-hidden rounded-full px-8 py-3 shadow-sm select-none hover:scale-105 sm:origin-center sm:px-16 sm:py-5"
+    >
+      <span className="bg-brand-base-dark absolute inset-0 top-0 left-0 w-0 transition-all duration-500 group-hover:w-full"></span>
+
+      <p className="text-gray-dark/80 group-hover:text-gray-dark relative z-1 font-serif text-2xl font-semibold">
+        {title}
+      </p>
+    </Link>
+  );
+};

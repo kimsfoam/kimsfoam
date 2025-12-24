@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { FlexCenter } from "@/ui/atom/flex-box";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 export const DashboardLogout = () => {
   const { data: session, status } = useSession();
