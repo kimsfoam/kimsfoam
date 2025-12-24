@@ -54,13 +54,13 @@ export type QuoteType = {
   name: string;
   phone?: string;
   status: number;
-  createdAt: Date;
-  workAt?: Date;
+  createdAt: Date | null;
+  workAt?: Date | null;
   price?: number;
   thickness: number;
   solutionType: number;
   buildingType: number;
-  area?: number;
+  area: number;
 };
 
 export type ProjectType = {

@@ -6,7 +6,15 @@ import { deleteProject, updateProject } from "@/lib/project";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
-export const ProjectAdminForm = ({ isOpen, setIsOpen, refProject }) => {
+export const ProjectAdminForm = ({
+  isOpen,
+  setIsOpen,
+  refProject,
+}: {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  refProject?: ProjectType;
+}) => {
   const [project, setProject] = useState<ProjectType>(
     refProject ?? {
       title: "",

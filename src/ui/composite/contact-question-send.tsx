@@ -3,7 +3,13 @@ import React from "react";
 import { ModalBox } from "@/ui/atom/modal-box";
 import Link from "next/link";
 
-export const ContactQuestionSend = ({ isOpen, setIsOpen }) => {
+export const ContactQuestionSend = ({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
     <ModalBox
       onClose={() => setIsOpen(false)}

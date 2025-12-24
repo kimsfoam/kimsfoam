@@ -24,6 +24,8 @@ export const ContactQuestionBuilding = ({
     300: "최고 수준의 단열 성능. 에너지 효율 극대화 및 장기 비용 절감",
   };
 
+  type Thickness = keyof typeof thicknessLabel;
+
   return (
     <section className="flex w-full max-w-7xl flex-col lg:flex-row lg:items-start lg:justify-between">
       <div className="flex w-full flex-col items-start justify-start gap-y-4 pb-4">
@@ -79,7 +81,7 @@ export const ContactQuestionBuilding = ({
           />
           <p className="text-text-gray text-lg">
             <span className="font-semibold">{quote.thickness}T </span>
-            {thicknessLabel[quote.thickness]}
+            {thicknessLabel[quote.thickness as Thickness]}
           </p>
         </label>
       </div>

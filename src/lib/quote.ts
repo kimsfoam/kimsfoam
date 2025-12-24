@@ -8,8 +8,8 @@ export async function submitQuote(data: {
   phone: string | null;
   status: number;
   createdAt: Date;
-  workAt: Date | null;
-  price: number;
+  workAt?: Date | null;
+  price?: number;
   thickness: number;
   solutionType: number;
   buildingType: number;

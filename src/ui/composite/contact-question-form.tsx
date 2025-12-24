@@ -15,8 +15,8 @@ export const ContactQuestionForm = () => {
   const phoneNumber = "010-4685-9699";
 
   const [quote, setQuote] = useState<QuoteType>({
-    email: session?.user.email ?? "",
-    name: session?.user.name ?? "",
+    email: session?.user?.email ?? "",
+    name: session?.user?.name ?? "",
     phone: "",
     status: 0,
     createdAt: null,
@@ -34,8 +34,8 @@ export const ContactQuestionForm = () => {
     if (session?.user) {
       setQuote((prev) => ({
         ...prev,
-        email: session.user.email ?? "",
-        name: session.user.name ?? "",
+        email: session.user?.email ?? "",
+        name: session.user?.name ?? "",
       }));
     }
   }, [session]);
@@ -92,7 +92,7 @@ export const ContactQuestionForm = () => {
         </a>
         {session ? (
           <button
-            onClick={handleSubmit}
+            type="submit"
             className="button-brand transition-ease relative flex h-10 cursor-pointer flex-col items-center justify-center rounded-full p-8"
           >
             <h3 className="text-text-black font-serif font-bold">
