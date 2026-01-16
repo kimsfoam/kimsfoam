@@ -106,7 +106,7 @@ export const MainMobileNav = () => {
   return (
     <section className="h-16 w-full bg-gray-50/75 shadow-sm backdrop-blur-[5px] backdrop-saturate-[180%]">
       <div className="flex h-full w-full items-center justify-center px-6">
-        <nav className="flex items-center gap-x-6">
+        <nav className="flex items-center gap-x-4">
           {mobileLinks.map((link, index) => (
             <MobileNavItem key={link.href} {...link} index={index} />
           ))}
