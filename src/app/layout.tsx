@@ -19,6 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${fontClass} antialiased`}>
+      <head>
+        <meta
+          name="naver-site-verification"
+          content="a019c0fc73f3c06d222df84fe0ef9eb5b78a7f6a"
+        />
+      </head>
       <body className="font-sans">
         <AuthProvider>
           {/*<Popup />*/}
