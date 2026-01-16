@@ -6,6 +6,7 @@ import { Header } from "@/ui/layout/header";
 import { AuthProvider } from "@/app/authProvider";
 import { Footer } from "@/ui/layout/footer";
 import { MobileHeader } from "@/ui/layout/mobile-header";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "킴스폼",
@@ -34,6 +35,11 @@ export default function RootLayout({
           <Footer />
           <MobileHeader />
         </AuthProvider>
+        <Script
+          src="//log1.toup.net/mirae_log_chat_common.js?adkey=trvbf"
+          strategy="afterInteractive"
+          charSet={"UTF-8"}
+        />
       </body>
     </html>
   );
