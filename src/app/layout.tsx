@@ -7,6 +7,7 @@ import { AuthProvider } from "@/app/authProvider";
 import { Footer } from "@/ui/layout/footer";
 import { MobileHeader } from "@/ui/layout/mobile-header";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "킴스폼",
@@ -40,6 +41,7 @@ export default function RootLayout({
           strategy="afterInteractive"
           charSet={"UTF-8"}
         />
+        <Analytics />
       </body>
     </html>
   );
