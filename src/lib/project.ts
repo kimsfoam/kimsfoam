@@ -8,14 +8,14 @@ export async function updateProject(project: ProjectType, thumbnail: File) {
   const isCreate = project.id == null;
 
   // validate
-  if (
-    !project.title ||
-    !project.url ||
-    project.buildingType < 0 ||
-    !project.date ||
-    (isCreate && !thumbnail)
-  )
-    throw new Error("Invalid project");
+  // if (
+  //   !project.title ||
+  //   !project.url ||
+  //   project.buildingType < 0 ||
+  //   !project.date ||
+  //   (isCreate && !thumbnail)
+  // )
+  //   throw new Error("Invalid project");
 
   // thumbnail -> BLOB
   if (thumbnail) {
