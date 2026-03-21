@@ -12,6 +12,22 @@ import { Analytics } from "@vercel/analytics/next";
 export const metadata: Metadata = {
   title: "킴스폼",
   description: "우레탄폼 전문 단열 시공업체입니다.",
+  openGraph: {
+    title: "킴스폼",
+    description: "우레탄폼 전문 단열 시공업체입니다.",
+    url: "https://www.kimsfoam.com",
+    siteName: "킴스폼",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "킴스폼 로고",
+      },
+    ],
+    locale: "ko_KR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
