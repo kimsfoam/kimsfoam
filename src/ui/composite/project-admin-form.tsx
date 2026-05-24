@@ -5,6 +5,7 @@ import { buildingEnum, ProjectType } from "@/lib/definition";
 import { deleteProject, updateProject } from "@/lib/project";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export const ProjectAdminForm = ({
   isOpen,
@@ -15,6 +16,7 @@ export const ProjectAdminForm = ({
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   refProject?: ProjectType;
 }) => {
+  const router = useRouter();
   const [project, setProject] = useState<ProjectType>(
     refProject ?? {
       title: "",
@@ -67,6 +69,7 @@ export const ProjectAdminForm = ({
 
     if (project.id != null) {
       await deleteProject(project.id);
+      router.refresh();
     }
     setIsOpen(false);
   };
@@ -75,10 +78,11 @@ export const ProjectAdminForm = ({
     e.preventDefault();
 
     try {
-      const result = await updateProject(project, thumbnail);
-      console.log("Project submitted successfully:", result);
+      await updateProject(project, thumbnail);
+      router.refresh();
     } catch (error) {
       console.error("Error submitting project:", error);
+      return;
     }
     setIsOpen(false);
   };

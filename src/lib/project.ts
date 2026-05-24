@@ -3,6 +3,7 @@
 import { ProjectType } from "@/lib/definition";
 import { prisma } from "@/lib/prisma";
 import { del, put } from "@vercel/blob";
+import { revalidatePath } from "next/cache";
 
 export async function updateProject(project: ProjectType, thumbnail: File) {
   const isCreate = project.id == null;
@@ -53,6 +54,8 @@ export async function updateProject(project: ProjectType, thumbnail: File) {
       },
     });
   }
+
+  revalidatePath("/project");
 }
 
 export async function deleteProject(id: number) {
@@ -65,4 +68,6 @@ export async function deleteProject(id: number) {
     token: process.env.BLOB_READ_WRITE_TOKEN,
   });
   await prisma.project.delete({ where: { id } });
+
+  revalidatePath("/project");
 }
