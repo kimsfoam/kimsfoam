@@ -75,14 +75,10 @@ export const ContactQuestionForm = () => {
         <Solution quote={quote} setQuote={setQuote} />
         <ContactQuestionBuilding quote={quote} setQuote={setQuote} />
         <ContactQuestionVenue />
-        <ContactQuestionPhone quote={quote} setQuote={setQuote} />
+        {/* <ContactQuestionPhone quote={quote} setQuote={setQuote} /> */}
       </div>
-      <div className="padding-outer bg-background-gray/70 relative flex w-full flex-row items-center justify-center gap-4">
-        {/*{!session && (*/}
-        {/*  <p className="text-description text-brand-red/80 font-semibold">*/}
-        {/*    전송하려면 로그인해야 합니다*/}
-        {/*  </p>*/}
-        {/*)}*/}
+
+      {/* <div className="padding-outer bg-background-gray/70 relative flex w-full flex-row items-center justify-center gap-4">
         <a
           href={`tel:${phoneNumber}`}
           className="transition-ease flex h-10 cursor-pointer flex-col items-center justify-center gap-x-4 rounded-full p-8 text-white"
@@ -112,7 +108,7 @@ export const ContactQuestionForm = () => {
         {isOpen && (
           <ContactQuestionSend isOpen={isOpen} setIsOpen={setIsOpen} />
         )}
-      </div>
+      </div> */}
     </form>
   );
 };
