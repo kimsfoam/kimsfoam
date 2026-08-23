@@ -29,7 +29,7 @@ const FAQList = () => {
   return (
     <div className="flex w-full max-w-6xl flex-col items-start justify-start">
       {faqs.map((faq) => (
-        <FAQCard {...faq} />
+        <FAQCard key={faq.title} {...faq} />
       ))}
     </div>
   );

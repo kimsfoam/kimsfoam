@@ -6,6 +6,11 @@ import { deleteProject, updateProject } from "@/lib/project";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import {
+  isProjectRegion,
+  projectCitiesByRegion,
+  projectRegions,
+} from "@/lib/project-regions";
 
 export const ProjectAdminForm = ({
   setIsOpen,
@@ -23,6 +28,8 @@ export const ProjectAdminForm = ({
       buildingType: 0,
       url: "",
       thumbnail: "",
+      region: "",
+      city: "",
     },
   );
 
@@ -213,6 +220,62 @@ export const ProjectAdminForm = ({
             onChange={(e) => setProject({ ...project, url: e.target.value })}
             placeholder="https://blog.naver.com/kimsfoam/"
           />
+        </div>
+        <div className="flex flex-col gap-y-2">
+          <h3 className="text-text-gray font-bold">시공 지역</h3>
+          <label className="relative w-full">
+            <select
+              required
+              disabled={isSubmitting}
+              className="text-description text-text-black bg-background-gray w-full appearance-none rounded-sm px-4 py-2 outline-none"
+              value={project.region ?? ""}
+              onChange={(e) =>
+                setProject({
+                  ...project,
+                  region: e.target.value,
+                  city: "",
+                })
+              }
+            >
+              <option value="" disabled>
+                지역을 선택해주세요
+              </option>
+              {projectRegions.map((region) => (
+                <option key={region} value={region}>
+                  {region}
+                </option>
+              ))}
+            </select>
+            <ChevronDownIcon className="text-text-white absolute top-1/2 right-3 size-6 -translate-y-1/2 stroke-2" />
+          </label>
+        </div>
+        <div className="flex flex-col gap-y-2">
+          <h3 className="text-text-gray font-bold">시공 시·군 검색</h3>
+          <input
+            type="text"
+            list="project-city-options"
+            required
+            autoComplete="off"
+            disabled={isSubmitting || !project.region}
+            className="input-text text-description text-text-black bg-background-gray rounded-sm px-4 py-2 outline-none disabled:opacity-50"
+            value={project.city ?? ""}
+            onChange={(e) => setProject({ ...project, city: e.target.value })}
+            placeholder={
+              project.region
+                ? "도시명을 입력해주세요"
+                : "지역을 먼저 선택해주세요"
+            }
+          />
+          <datalist id="project-city-options">
+            {project.region &&
+              isProjectRegion(project.region) &&
+              projectCitiesByRegion[project.region].map((city) => (
+                <option key={city.name} value={city.name} />
+              ))}
+          </datalist>
+          <p className="text-small text-text-gray">
+            이름을 입력하면 선택한 지역의 시·군 후보가 표시됩니다.
+          </p>
         </div>
         {errorMessage && (
           <p className="text-small rounded-sm bg-red-50 px-3 py-2 text-red-700">

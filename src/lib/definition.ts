@@ -70,4 +70,6 @@ export type ProjectType = {
   buildingType: number;
   url: string;
   thumbnail: string;
+  region?: string | null;
+  city?: string | null;
 };

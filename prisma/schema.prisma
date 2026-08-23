@@ -29,4 +29,6 @@ model Project {
   buildingType Int      @default(0)
   date         DateTime
   thumbnail    String
+  region       String?
+  city         String?
 }

@@ -1,0 +1,65 @@
+import type { ProjectRegion } from "@/lib/project-regions";
+
+// false로 바꾸면 홈의 시공 건수와 지도에서 임시 50곳이 모두 사라집니다.
+export const DEMO_MAP_LOCATIONS_ENABLED = true;
+
+const demoLocations: Array<{ region: ProjectRegion; city: string }> = [
+  { region: "서울", city: "강남구" },
+  { region: "서울", city: "강서구" },
+  { region: "서울", city: "송파구" },
+  { region: "경기", city: "수원" },
+  { region: "경기", city: "용인" },
+  { region: "경기", city: "화성" },
+  { region: "경기", city: "고양" },
+  { region: "경기", city: "파주" },
+  { region: "경기", city: "남양주" },
+  { region: "경기", city: "평택" },
+  { region: "경기", city: "김포" },
+  { region: "경기", city: "성남" },
+  { region: "경기", city: "안산" },
+  { region: "경기", city: "이천" },
+  { region: "경기", city: "양평" },
+  { region: "인천", city: "연수구" },
+  { region: "인천", city: "서구" },
+  { region: "강원", city: "춘천" },
+  { region: "강원", city: "원주" },
+  { region: "강원", city: "강릉" },
+  { region: "강원", city: "홍천" },
+  { region: "충북", city: "청주" },
+  { region: "충북", city: "충주" },
+  { region: "충남", city: "천안" },
+  { region: "충남", city: "아산" },
+  { region: "충남", city: "당진" },
+  { region: "대전", city: "유성구" },
+  { region: "세종", city: "세종" },
+  { region: "전북", city: "익산" },
+  { region: "전북", city: "전주" },
+  { region: "전북", city: "군산" },
+  { region: "전북", city: "완주" },
+  { region: "광주", city: "광산구" },
+  { region: "전남", city: "순천" },
+  { region: "전남", city: "여수" },
+  { region: "전남", city: "목포" },
+  { region: "경북", city: "칠곡" },
+  { region: "경북", city: "포항" },
+  { region: "경북", city: "구미" },
+  { region: "경북", city: "안동" },
+  { region: "대구", city: "달서구" },
+  { region: "경남", city: "창원" },
+  { region: "경남", city: "김해" },
+  { region: "경남", city: "진주" },
+  { region: "경남", city: "거제" },
+  { region: "부산", city: "기장군" },
+  { region: "부산", city: "해운대구" },
+  { region: "울산", city: "울주군" },
+  { region: "제주", city: "제주" },
+  { region: "제주", city: "서귀포" },
+];
+
+export const demoMapLocations = DEMO_MAP_LOCATIONS_ENABLED
+  ? demoLocations.map(({ region, city }, index) => ({
+      title: `${region} ${city} 임시 지도 위치 ${index + 1}`,
+      region,
+      city,
+    }))
+  : [];

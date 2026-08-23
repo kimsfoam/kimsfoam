@@ -9,15 +9,28 @@ import { useSession } from "next-auth/react";
 
 export const ProjectClient = ({ projects }: { projects: ProjectType[] }) => {
   const [buildingIndex, setBuildingIndex] = useState<number>(-1);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleBuildingIndexChange: React.Dispatch<
+    React.SetStateAction<number>
+  > = (value) => {
+    setBuildingIndex(value);
+    setCurrentPage(1);
+  };
 
   return (
     <div className="flex w-full flex-col items-start justify-start gap-y-2 sm:items-center">
       <ProjectOption
         buildingIndex={buildingIndex}
-        setBuildingIndex={setBuildingIndex}
+        setBuildingIndex={handleBuildingIndexChange}
         projects={projects}
       />
-      <ProjectList buildingIndex={buildingIndex} projects={projects} />
+      <ProjectList
+        buildingIndex={buildingIndex}
+        projects={projects}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
@@ -25,20 +38,76 @@ export const ProjectClient = ({ projects }: { projects: ProjectType[] }) => {
 const ProjectList = ({
   buildingIndex,
   projects,
+  currentPage,
+  setCurrentPage,
 }: {
   buildingIndex: number;
   projects: ProjectType[];
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const filteredProjects =
     buildingIndex === -1
       ? projects
       : projects.filter((project) => project.buildingType === buildingIndex);
+  const projectsPerPage = 8;
+  const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
+  const safePage = Math.min(currentPage, Math.max(totalPages, 1));
+  const visibleProjects = filteredProjects.slice(
+    (safePage - 1) * projectsPerPage,
+    safePage * projectsPerPage,
+  );
 
   return (
-    <div className="mt-4 grid w-full max-w-7xl grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-      {filteredProjects.map((project) => (
-        <ProjectCard project={project} key={project.id} />
-      ))}
+    <div className="flex w-full max-w-7xl flex-col items-center">
+      <div className="mt-4 grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {visibleProjects.map((project) => (
+          <ProjectCard project={project} key={project.id} />
+        ))}
+      </div>
+
+      {totalPages > 1 && (
+        <nav
+          className="mt-10 flex items-center justify-center gap-2"
+          aria-label="시공사례 페이지 이동"
+        >
+          <button
+            type="button"
+            disabled={safePage === 1}
+            onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
+            className="text-text-gray hover:text-text-black disabled:text-text-gray/30 cursor-pointer rounded-full px-3 py-2 text-sm font-semibold disabled:cursor-not-allowed"
+          >
+            이전
+          </button>
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+            (page) => (
+              <button
+                key={page}
+                type="button"
+                aria-current={page === safePage ? "page" : undefined}
+                onClick={() => setCurrentPage(page)}
+                className={`size-10 cursor-pointer rounded-full text-sm font-bold transition-colors ${
+                  page === safePage
+                    ? "bg-text-black text-white"
+                    : "bg-background-gray text-text-gray hover:text-text-black"
+                }`}
+              >
+                {page}
+              </button>
+            ),
+          )}
+          <button
+            type="button"
+            disabled={safePage === totalPages}
+            onClick={() =>
+              setCurrentPage((page) => Math.min(totalPages, page + 1))
+            }
+            className="text-text-gray hover:text-text-black disabled:text-text-gray/30 cursor-pointer rounded-full px-3 py-2 text-sm font-semibold disabled:cursor-not-allowed"
+          >
+            다음
+          </button>
+        </nav>
+      )}
     </div>
   );
 };

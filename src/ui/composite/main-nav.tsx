@@ -15,7 +15,7 @@ import { LoginContainer } from "@/ui/composite/login-container";
 const links = [
   { href: "/home", title: "홈페이지", type: "logo" },
   { href: "/team", title: "회사 소개", type: "text" },
-  { href: "/project", title: "시공 후기", type: "text" },
+  { href: "/project", title: "시공사례", type: "text" },
   { href: "/support", title: "고객 지원", type: "text" },
   { href: "/contact", title: "견적 문의하기 ↗", type: "button" },
 ] as const;
@@ -23,7 +23,7 @@ const links = [
 const mobileLinks = [
   { href: "/home", title: "홈페이지", type: "logo" },
   { href: "/team", title: "회사소개", type: "text" },
-  { href: "/project", title: "시공후기", type: "text" },
+  { href: "/project", title: "시공사례", type: "text" },
   { href: "/support", title: "고객지원", type: "text" },
   { href: "tel:010-4685-9699", title: "전화연결", type: "text" },
   { href: "/contact", title: "견적문의", type: "button" },

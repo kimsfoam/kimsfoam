@@ -3,6 +3,7 @@
 import { ADMIN_EMAILS, authOptions } from "@/lib/authOptions";
 import { buildingEnum, ProjectType } from "@/lib/definition";
 import { prisma } from "@/lib/prisma";
+import { getProjectCityPoint, isProjectRegion } from "@/lib/project-regions";
 import { del, put } from "@vercel/blob";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
@@ -27,6 +28,8 @@ type ValidProjectInput = {
   url: string;
   buildingType: number;
   date: Date;
+  region: string;
+  city: string;
 };
 
 async function requireAdmin() {
@@ -52,7 +55,9 @@ function validateProject(project: ProjectType): ValidProjectInput {
     throw new ProjectActionError("올바른 블로그 URL을 입력해주세요.");
   }
   if (!["http:", "https:"].includes(url.protocol) || urlValue.length > 2048) {
-    throw new ProjectActionError("HTTP 또는 HTTPS 블로그 URL만 사용할 수 있습니다.");
+    throw new ProjectActionError(
+      "HTTP 또는 HTTPS 블로그 URL만 사용할 수 있습니다.",
+    );
   }
 
   if (
@@ -68,11 +73,23 @@ function validateProject(project: ProjectType): ValidProjectInput {
     throw new ProjectActionError("올바른 시공일자를 입력해주세요.");
   }
 
+  const region = project.region?.trim() ?? "";
+  if (!isProjectRegion(region)) {
+    throw new ProjectActionError("시공 지역을 선택해주세요.");
+  }
+
+  const city = project.city?.trim() ?? "";
+  if (!getProjectCityPoint(region, city)) {
+    throw new ProjectActionError("시공 시·군을 선택해주세요.");
+  }
+
   return {
     title,
     url: url.toString(),
     buildingType: project.buildingType,
     date,
+    region,
+    city,
   };
 }
 
@@ -149,9 +166,10 @@ export async function updateProject(
       throw new ProjectActionError("올바르지 않은 시공후기입니다.");
     }
 
-    const currentProject = projectId == null
-      ? null
-      : await prisma.project.findUnique({ where: { id: projectId } });
+    const currentProject =
+      projectId == null
+        ? null
+        : await prisma.project.findUnique({ where: { id: projectId } });
 
     if (!isCreate && !currentProject) {
       throw new ProjectActionError("수정할 시공후기를 찾을 수 없습니다.");
@@ -201,13 +219,17 @@ export async function updateProject(
     }
 
     revalidatePath("/project");
+    revalidatePath("/home");
     return { success: true };
   } catch (error) {
     if (uploadedThumbnail && blobToken) {
       try {
         await deleteManagedBlob(uploadedThumbnail, blobToken);
       } catch (cleanupError) {
-        console.error("실패한 업로드의 Blob 정리에 실패했습니다.", cleanupError);
+        console.error(
+          "실패한 업로드의 Blob 정리에 실패했습니다.",
+          cleanupError,
+        );
       }
     }
     return actionFailure(error, "시공후기를 저장하지 못했습니다.");
@@ -239,6 +261,7 @@ export async function deleteProject(id: number): Promise<ProjectActionResult> {
     }
 
     revalidatePath("/project");
+    revalidatePath("/home");
     return { success: true };
   } catch (error) {
     return actionFailure(error, "시공후기를 삭제하지 못했습니다.");
