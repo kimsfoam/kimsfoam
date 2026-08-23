@@ -1,7 +1,6 @@
-﻿import { ContactHeroContainer } from "@/ui/composite/contact-hero-container";
-import { ContactQuestionContainer } from "@/ui/composite/contact-question-container";
-import { ContactEstimateContainer } from "@/ui/composite/contact-estimate-container";
 import { ProjectContainer } from "@/ui/composite/project-container";
+
+export const dynamic = "force-dynamic";
 
 export default function Project() {
   return (

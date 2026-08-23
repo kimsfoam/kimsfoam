@@ -1,6 +1,8 @@
 ﻿import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
+export const ADMIN_EMAILS = ["kimsfoam@gmail.com", "thatkwon@gmail.com"];
+
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
@@ -25,14 +27,13 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     // jwt token 정의 및 반환
-    async jwt({ token, user, account, profile, trigger, session }) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
 
-        const adminEmails = ["kimsfoam@gmail.com", "thatkwon@gmail.com"];
-        if (token.email && adminEmails.includes(token.email)) {
+        if (token.email && ADMIN_EMAILS.includes(token.email.toLowerCase())) {
           token.role = "admin";
         } else {
           token.role = "user";
@@ -43,10 +44,10 @@ export const authOptions: NextAuthOptions = {
 
     async session({ session, token }) {
       if (token && session.user) {
-        (session.user as any).id = token.id;
-        (session.user as any).name = token.name;
-        (session.user as any).email = token.email;
-        (session.user as any).role = (token as any).role ?? "user";
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.role = token.role ?? "user";
       }
       return session;
     },

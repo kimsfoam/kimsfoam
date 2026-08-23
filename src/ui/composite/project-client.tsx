@@ -47,7 +47,7 @@ const ProjectCard = ({ project }: { project: ProjectType }) => {
   const { data: session } = useSession();
   const isAdmin = session?.user.role === "admin";
 
-  const { id, thumbnail, title, buildingType, date, url } = project;
+  const { thumbnail, title, buildingType, date, url } = project;
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -60,12 +60,16 @@ const ProjectCard = ({ project }: { project: ProjectType }) => {
         className="group card-gray transition-ease flex w-full cursor-pointer flex-col items-center justify-start overflow-hidden rounded-lg"
       >
         <div className="relative flex h-60 w-full flex-col items-center justify-center overflow-hidden">
-          <Image
-            src={thumbnail}
-            alt="project image"
-            fill
-            className="transition-ease object-cover group-hover:scale-110"
-          />
+          {thumbnail ? (
+            <Image
+              src={thumbnail}
+              alt={`${title} 시공 현장`}
+              fill
+              className="transition-ease object-cover group-hover:scale-110"
+            />
+          ) : (
+            <span className="text-text-gray text-small">이미지 준비 중</span>
+          )}
         </div>
         <div className="flex w-full flex-1 flex-col items-start gap-y-1 p-4">
           <h3 className="text-text-black text-description line-clamp-1 font-semibold">

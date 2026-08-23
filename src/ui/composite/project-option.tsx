@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import React from "react";
-import { buildingEnum } from "@/lib/definition";
+import { buildingEnum, ProjectType } from "@/lib/definition";
 import {
   BarsArrowDownIcon,
   ChevronDownIcon,
@@ -13,6 +13,10 @@ export const ProjectOption = ({
   buildingIndex,
   setBuildingIndex,
   projects,
+}: {
+  buildingIndex: number;
+  setBuildingIndex: React.Dispatch<React.SetStateAction<number>>;
+  projects: ProjectType[];
 }) => {
   const { data: session } = useSession();
   const isAdmin = session?.user.role === "admin";
@@ -24,9 +28,7 @@ export const ProjectOption = ({
     },
     {} as Record<number, number>,
   );
-  const totalProjects = projects.length;
-
-  const handleBuildingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBuildingChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setBuildingIndex(Number(e.target.value));
   };
 
