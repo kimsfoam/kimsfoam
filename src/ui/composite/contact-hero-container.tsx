@@ -26,7 +26,7 @@ export const ContactHeroContainer = () => {
   }, []);
 
   return (
-    <section className="relative w-full py-16">
+    <section className="relative w-full py-10 sm:py-12">
       <div className="padding-outer flex flex-col items-start justify-start gap-y-2 sm:items-center">
         <h2 className="text-text-black font-serif font-bold">
           지금 바로 전화로 상담하세요

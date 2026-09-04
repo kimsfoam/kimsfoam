@@ -17,7 +17,8 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import React, { useMemo, useState } from "react";
+import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const scheduleOptions = [
   "최대한 빨리",
@@ -114,6 +115,15 @@ const choiceClass = (selected: boolean) =>
   }`;
 
 export const ContactQuestionForm = () => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const summaryRef = useRef<HTMLElement>(null);
+  const summaryTargetY = useMotionValue(0);
+  const summarySpringY = useSpring(summaryTargetY, {
+    stiffness: 180,
+    damping: 28,
+    mass: 0.55,
+  });
+  const prefersReducedMotion = useReducedMotion();
   const [quote, setQuote] = useState<QuoteType>({
     email: "",
     name: "",
@@ -142,6 +152,56 @@ export const ContactQuestionForm = () => {
   >("");
   const [selectedCity, setSelectedCity] = useState("");
   const [expandedSolution, setExpandedSolution] = useState<number | null>(null);
+
+  useEffect(() => {
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
+    let animationFrame = 0;
+
+    const updateSummaryPosition = () => {
+      animationFrame = 0;
+      const form = formRef.current;
+      const summary = summaryRef.current;
+
+      if (!form || !summary || !desktopQuery.matches) {
+        summaryTargetY.set(0);
+        return;
+      }
+
+      const formRect = form.getBoundingClientRect();
+      const summaryRect = summary.getBoundingClientRect();
+      const formTop = window.scrollY + formRect.top;
+      const topOffset = 96;
+      const maxOffset = Math.max(0, formRect.height - summaryRect.height);
+      const nextOffset = Math.min(
+        maxOffset,
+        Math.max(0, window.scrollY + topOffset - formTop),
+      );
+
+      summaryTargetY.set(nextOffset);
+    };
+
+    const scheduleUpdate = () => {
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(updateSummaryPosition);
+    };
+
+    const resizeObserver = new ResizeObserver(scheduleUpdate);
+    if (formRef.current) resizeObserver.observe(formRef.current);
+    if (summaryRef.current) resizeObserver.observe(summaryRef.current);
+
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    desktopQuery.addEventListener("change", scheduleUpdate);
+    scheduleUpdate();
+
+    return () => {
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      resizeObserver.disconnect();
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      desktopQuery.removeEventListener("change", scheduleUpdate);
+    };
+  }, [summaryTargetY]);
 
   const phoneNumber = "010-4685-9699";
   const kakaoChannelUrl = process.env.NEXT_PUBLIC_KAKAO_CHANNEL_URL;
@@ -282,10 +342,11 @@ export const ContactQuestionForm = () => {
 
   return (
     <form
+      ref={formRef}
       onSubmit={handleSubmit}
-      className="border-background-black grid w-full overflow-hidden rounded-3xl border bg-white shadow-xl lg:grid-cols-[minmax(0,1fr)_22rem]"
+      className="border-background-black grid w-full overflow-hidden rounded-3xl border bg-white shadow-xl lg:grid-cols-[minmax(0,1fr)_22rem] lg:overflow-visible"
     >
-      <div className="flex flex-col gap-12 p-5 sm:p-10 lg:p-12">
+      <div className="flex flex-col gap-12 p-5 sm:p-10 lg:rounded-l-3xl lg:p-12">
         <FormStep number="01" title="어디에 시공하시나요?">
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {buildingEnum.map((building, index) => (
@@ -359,9 +420,6 @@ export const ContactQuestionForm = () => {
               return (
                 <label
                   key={solution.name}
-                  onClick={() =>
-                    setExpandedSolution((current) => (current === index ? null : index))
-                  }
                   className={`group relative cursor-pointer overflow-hidden rounded-2xl border bg-white p-5 text-left shadow-sm transition-[border-color,background-color,box-shadow,transform] duration-300 focus-within:ring-2 focus-within:ring-brand-blue/30 focus-within:outline-none md:hover:-translate-y-0.5 md:hover:shadow-md ${
                     selected
                       ? "border-brand-blue bg-brand-blue/[0.045] shadow-md"
@@ -374,6 +432,11 @@ export const ContactQuestionForm = () => {
                     className="sr-only"
                     checked={selected}
                     aria-describedby={descriptionId}
+                    onClick={() =>
+                      setExpandedSolution((current) =>
+                        current === index ? null : index,
+                      )
+                    }
                     onChange={() =>
                       setQuote((prev) => ({ ...prev, solutionType: index }))
                     }
@@ -540,7 +603,11 @@ export const ContactQuestionForm = () => {
         </FormStep>
       </div>
 
-      <aside className="bg-background-gray/70 border-background-black flex flex-col border-t p-5 sm:p-8 lg:sticky lg:top-24 lg:h-fit lg:border-t-0 lg:border-l">
+      <motion.aside
+        ref={summaryRef}
+        style={{ y: prefersReducedMotion ? summaryTargetY : summarySpringY }}
+        className="bg-background-gray/70 border-background-black flex flex-col border-t p-5 sm:p-8 lg:h-fit lg:self-start lg:rounded-r-3xl lg:border-t-0 lg:border-l lg:will-change-transform"
+      >
         <p className="text-brand-blue text-sm font-bold">내 견적 요약</p>
         <h3 className="text-text-black mt-1 font-serif text-xl font-bold">신청 전 확인해 주세요</h3>
         <dl className="mt-6 flex flex-col gap-4">
@@ -566,7 +633,7 @@ export const ContactQuestionForm = () => {
         <p className="text-text-gray mt-3 text-center text-xs leading-5">
           접수 즉시 담당자에게 알림이 전달되며,<br />확인 후 빠르게 연락드립니다.
         </p>
-      </aside>
+      </motion.aside>
     </form>
   );
 };

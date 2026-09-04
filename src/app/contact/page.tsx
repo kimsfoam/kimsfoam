@@ -3,7 +3,7 @@ import { ContactQuestionContainer } from "@/ui/composite/contact-question-contai
 
 export default function Contact() {
   return (
-    <main className="mb-120 flex flex-col items-center justify-start gap-y-[clamp(2rem,4vw,4rem)]">
+    <main className="mb-120 flex flex-col items-center justify-start gap-y-4 sm:gap-y-6">
       <ContactHeroContainer />
       <ContactQuestionContainer />
       {/*<ContactEstimateContainer />*/}
