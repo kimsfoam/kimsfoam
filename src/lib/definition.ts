@@ -32,7 +32,13 @@ export const statusEnum = [
   "결제 대기 중",
   "시공 완료",
 ];
-export const solutionEnum = ["수성연질폼", "저밀도", "경질폼", "준불연폼"];
+export const solutionEnum = [
+  "수성연질폼",
+  "저밀도",
+  "경질폼",
+  "준불연폼",
+  "상담 후 결정",
+];
 export const buildingEnum = [
   "단독주택",
   "한옥·목조주택",
@@ -61,6 +67,10 @@ export type QuoteType = {
   solutionType: number;
   buildingType: number;
   area: number;
+  region?: string;
+  schedule?: string;
+  memo?: string;
+  privacyAgreed?: boolean;
 };
 
 export type ProjectType = {

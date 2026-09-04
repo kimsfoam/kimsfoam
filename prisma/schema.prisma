@@ -20,6 +20,10 @@ model Quote {
   solutionType Int       @default(0)
   buildingType Int       @default(0)
   area         Int
+  region       String?
+  schedule     String?
+  memo         String?
+  privacyAgreed Boolean   @default(false)
 }
 
 model Project {

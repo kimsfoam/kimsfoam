@@ -1,0 +1,5 @@
+ALTER TABLE "Quote"
+ADD COLUMN "region" TEXT,
+ADD COLUMN "schedule" TEXT,
+ADD COLUMN "memo" TEXT,
+ADD COLUMN "privacyAgreed" BOOLEAN NOT NULL DEFAULT false;
