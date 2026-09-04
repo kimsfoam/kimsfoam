@@ -26,6 +26,41 @@ const scheduleOptions = [
   "일정 미정",
 ];
 
+const solutionCards = [
+  {
+    name: "수성연질폼",
+    keywords: "복잡한 구조 · 기밀 · 흡음",
+    description: [
+      "높은 발포성과 유연성으로 작은 틈과 복잡한 구조까지 채우기 좋습니다.",
+      "목조주택, 벽체·천장 등 기밀과 흡음이 필요한 공간에 적합합니다.",
+    ],
+  },
+  {
+    name: "저밀도폼",
+    keywords: "단열성능 · 경제성 · 일반건축",
+    description: [
+      "수성연질폼보다 높은 단열성능을 확보하면서 경질폼보다 부담을 낮춘 일반 건축용 단열재입니다.",
+      "주택·건축물의 벽체와 천장 등에 폭넓게 사용할 수 있습니다.",
+    ],
+  },
+  {
+    name: "경질폼",
+    keywords: "고단열 · 강성 · 수분관리",
+    description: [
+      "높은 단열성능과 밀도를 가진 단열재입니다.",
+      "외부 온도의 영향을 크게 받는 냉동·저온창고, 철판 구조, 외기에 가까운 벽체와 지붕 등에 적합합니다.",
+    ],
+  },
+  {
+    name: "준불연폼",
+    keywords: "고단열 · 준불연 · 화재안전",
+    description: [
+      "일반 우레탄폼보다 화재 시 열 발생과 연소 확대를 억제하도록 성능을 강화한 제품입니다.",
+      "화재 안전성을 더욱 고려해야 하는 건축물에 적합합니다.",
+    ],
+  },
+] as const;
+
 const provinceNames: Record<string, string> = {
   서울: "서울특별시",
   경기: "경기도",
@@ -106,6 +141,7 @@ export const ContactQuestionForm = () => {
     ProjectRegion | ""
   >("");
   const [selectedCity, setSelectedCity] = useState("");
+  const [expandedSolution, setExpandedSolution] = useState<number | null>(null);
 
   const phoneNumber = "010-4685-9699";
   const kakaoChannelUrl = process.env.NEXT_PUBLIC_KAKAO_CHANNEL_URL;
@@ -314,20 +350,89 @@ export const ContactQuestionForm = () => {
         </FormStep>
 
         <FormStep number="02" title="어떤 시공을 생각하고 계신가요?">
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-            {solutionEnum.map((solution, index) => (
-              <label key={solution} className={choiceClass(quote.solutionType === index)}>
-                <input
-                  type="radio"
-                  name="solutionType"
-                  className="sr-only"
-                  checked={quote.solutionType === index}
-                  onChange={() => setQuote((prev) => ({ ...prev, solutionType: index }))}
-                />
-                {solution}
-              </label>
-            ))}
+          <div className="grid items-start gap-3 md:grid-cols-2">
+            {solutionCards.map((solution, index) => {
+              const selected = quote.solutionType === index;
+              const expanded = expandedSolution === index;
+              const descriptionId = `solution-description-${index}`;
+
+              return (
+                <label
+                  key={solution.name}
+                  onClick={() =>
+                    setExpandedSolution((current) => (current === index ? null : index))
+                  }
+                  className={`group relative cursor-pointer overflow-hidden rounded-2xl border bg-white p-5 text-left shadow-sm transition-[border-color,background-color,box-shadow,transform] duration-300 focus-within:ring-2 focus-within:ring-brand-blue/30 focus-within:outline-none md:hover:-translate-y-0.5 md:hover:shadow-md ${
+                    selected
+                      ? "border-brand-blue bg-brand-blue/[0.045] shadow-md"
+                      : "border-background-black hover:border-brand-blue/50"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="solutionType"
+                    className="sr-only"
+                    checked={selected}
+                    aria-describedby={descriptionId}
+                    onChange={() =>
+                      setQuote((prev) => ({ ...prev, solutionType: index }))
+                    }
+                  />
+                  <span className="flex min-h-16 items-start justify-between gap-4">
+                    <span>
+                      <span className="text-text-black block font-serif text-lg font-bold sm:text-xl">
+                        {solution.name}
+                      </span>
+                      <span className="text-brand-blue mt-1.5 block text-xs font-semibold tracking-tight sm:text-sm">
+                        {solution.keywords}
+                      </span>
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 ${
+                        selected
+                          ? "border-brand-blue bg-brand-blue text-white"
+                          : "border-background-black bg-white text-transparent"
+                      }`}
+                    >
+                      <CheckIcon className="size-4" />
+                    </span>
+                  </span>
+                  <span
+                    id={descriptionId}
+                    className={`grid transition-[grid-template-rows,opacity,margin] duration-300 ease-out md:grid-rows-[0fr] md:opacity-0 md:group-hover:mt-4 md:group-hover:grid-rows-[1fr] md:group-hover:opacity-100 md:group-focus-within:mt-4 md:group-focus-within:grid-rows-[1fr] md:group-focus-within:opacity-100 ${
+                      expanded
+                        ? "mt-4 grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <span className="min-h-0 overflow-hidden">
+                      <span className="border-brand-blue/25 text-text-gray block border-t pt-4 text-sm leading-6">
+                        {solution.description.map((line) => (
+                          <span key={line} className="block not-last:mb-1">
+                            {line}
+                          </span>
+                        ))}
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              );
+            })}
           </div>
+          <label
+            className={`${choiceClass(quote.solutionType === 4)} self-start px-5 sm:self-auto`}
+            onClick={() => setExpandedSolution(null)}
+          >
+            <input
+              type="radio"
+              name="solutionType"
+              className="sr-only"
+              checked={quote.solutionType === 4}
+              onChange={() => setQuote((prev) => ({ ...prev, solutionType: 4 }))}
+            />
+            어떤 제품이 맞을지 모르겠어요 · 상담 후 결정
+          </label>
           <div className="grid gap-4 sm:grid-cols-2">
             <FieldLabel label="예상 시공 면적" required>
               <div className="relative">
