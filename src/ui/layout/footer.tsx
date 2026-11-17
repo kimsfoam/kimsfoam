@@ -42,6 +42,12 @@ export const Footer = () => {
             <p className="text-small text-text-gray cursor-pointer underline">
               개인정보처리방침
             </p>
+            <a
+              href="/google-privacy.html"
+              className="text-small text-text-gray mt-2 underline"
+            >
+              견적 자동화 개인정보처리방침
+            </a>
           </div>
         </div>
         <div className="flex w-full flex-row items-start justify-start gap-4">
